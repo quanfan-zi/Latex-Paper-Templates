@@ -1,0 +1,150 @@
+\documentclass[UTF8]{ctexart}
+%\usepackage{fontspec}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{threeparttable,booktabs}
+\usepackage[noend]{algpseudocode}
+\usepackage{indentfirst,amssymb,amsmath,color,graphicx,pifont,amsmath}
+
+
+\numberwithin{equation}{section}
+\graphicspath{{./pic/}}
+\usepackage[T1]{fontenc}
+
+%% 采取A4纸张，页边距采取（上下2.54cm，左右3.17cm，页眉1.5cm，页脚1.75cm）
+%% 设置1.5倍行间距. 注意, word和latex中多倍行距的默认系数是不一样的, 前者是1.3, 后者是1.2. 想要在Latex中实现Word中的"1.5"倍行距,实际倍数为1.5*1.3/1.2=1.625
+%% (但是本人更喜欢1.5倍, 故保留)
+\usepackage{geometry}
+\geometry{a4paper,left=3.18cm,right=3.18cm,top=2.54cm,bottom=2.54cm,headheight=1.5cm,footskip=1.75cm }
+\renewcommand\baselinestretch{1.5}
+
+\usepackage{fancyhdr}  
+\usepackage{lastpage}
+\fancyhf{} 
+
+
+%% "目录"二字用三号字、黑体、居中书写，“目”与“录”之间空一格。内容用小四号字、宋体。
+%% 目录里包括正文层次的标题序号、参考文献、致谢、附录等标题和页码。
+\renewcommand{\contentsname}{ \heiti\zihao{3}目\ 录}
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\zihao{-4}} 
+%\renewcommand{\cftsubsecfont}{\zihao{-4}}
+
+%% 一级标题采用三号字黑体居中，上下各空一行；
+%% 二级及以下标题用小四号字黑体；
+\ctexset{
+  section = {
+    format = \zihao{3}\centering\bfseries\heiti, 
+    name = {第,章},
+    number = \arabic{section},
+    aftername = \quad,  
+	beforeskip = 1.0\baselineskip,  
+    afterskip = 1.0\baselineskip,   
+  },
+  subsection = {format = \zihao{-4}\heiti, },
+  subsubsection = {format = \zihao{-4}\heiti, }
+}
+
+
+\newtheorem{theorem}{\color{black}\indent{定理}}[section]
+\newtheorem{lemma}{\color{black}\indent{引理}}[section]
+\newtheorem{proposition}{\color{black}\indent{命题}}[section]
+\newtheorem{definition}{\color{black}\indent{定义}}[section]
+\newtheorem{remark}{\color{black}\indent{注}}[section]
+\newtheorem{corollary}{\color{black}\indent{推论}}[section]
+\newtheorem{example}{\color{black}\indent{例}}[section]
+%\newtheorem{proof}{\color{black}\indent{证明}}
+\newtheorem{solution}{\color{black}\indent{解}}
+\newcommand{\bt}[2]{\begin{center}{\bf\heiti\S {#1}\hbox{#2}}\end{center}}
+\newcommand{\wx}[1]{$^{[#1]}$}
+\newcommand{\w} [1]{\re {[#1]}}
+\newtheorem{fig}[figure]{\it figure}
+
+
+%% 图、表、公式等与正文之间要有一行的间距；文中的图,表,附注,公式采用阿拉伯数字
+%% 分章（或连续）编号。如：图 2-5，表 3-2，公式（5-1）等。若图或表中有附注，采用英文小写字母顺序编号
+\usepackage{graphicx}
+\usepackage{subfigure} 
+%subfigure与tocloft同时使用会出错, 请注意
+%\usepackage{pstricks,pst-plot,pst-func}
+%\usepackage{pspicture}
+%\usepackage{curves}
+
+
+\allowdisplaybreaks
+%\include{rgb}
+
+%% For creating math operators
+\DeclareMathOperator*{\argmax}{argmax}
+\def\d{{\mathrm d}}
+
+\def\A{{\mathcal{A}}}
+\def\H{{\mathcal{H}}}
+\def\G{{\mathcal G}}
+\def\F{{\mathcal F}}
+\def\U{{\mathcal U}}
+\def\V{{\mathcal V}}
+
+\def\eps{\varepsilon}
+\def\ds{\displaystyle}
+
+\def\<{{\langle }}
+\def\>{{\rangle }}
+
+\floatname{algorithm}{算法}
+
+
+\begin{document}
+
+%% 封面本体
+\include{title.tex}
+\thispagestyle{empty}
+
+
+\newpage
+%% 页眉从摘要开始，本科生设为“吉林大学网络教育xx届本科生毕业设计（论文）”，采用宋体五号字居中书写
+%% 页码放在页脚中（第 X 页 共 X 页）（宋体小五号），从正文开始，居中书写
+\pagestyle{fancy} 
+\chead{\zihao{5} \textbf{吉林大学网络教育}2020届本科生毕业设计(论文)}
+\cfoot{}
+
+%% 摘要本体
+\include{abstract.tex}
+
+\newpage 
+
+\begin{center}
+\tableofcontents
+\end{center}
+
+\newpage
+\addtocounter{page}{1}
+\cfoot{\zihao{-5}第 \thepage 页\ 共 \pageref{LastPage} 页}
+
+%% 正文本体
+\include{maincontent.tex}
+
+
+\newpage
+%% 参考文献要另起一页，一律放在正文后，不得放在各章之后. 参考文献作者最多写到第三位，余者写“等”。
+%%（五号、黑体、顶格）格式：[1] 作者. 文题. 刊名，年，卷号（期号）：起~止页码（仿宋体、五号）
+ \setlength{\baselineskip}{14pt}
+ \addcontentsline{toc}{section}{参考文献}
+ \bibliographystyle{abbrv}
+ \bibliography{refer}
+
+\newpage
+%% “致 谢”二字中间空一格、三号字、黑体、居中。
+%% 内容限 1 页，采用小四号宋体。
+\addcontentsline{toc}{section}{致谢}
+\section*{致\ 谢}
+在此，我要感谢我的导师和同事对我的支持和帮助。
+
+\newpage
+\include{appendix.tex}
+
+%% 后面可能还有《毕业论文申报表》,《指导教师评语表》等附表内容,请不要忘记
+\end{document}
